@@ -1,183 +1,132 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Josi – Die Feuerkönigin</title>
+    <title>GRRRR!</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Russo+One&display=swap');
-
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Russo One', sans-serif;
+            background-color: black;
+            color: red;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            font-size: 5rem;
+            font-weight: bold;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background: linear-gradient(-45deg, #ff8c00, #ff4500, #ff1493, #ff6347);
-            background-size: 400% 400%;
-            animation: backgroundMove 6s ease infinite;
-            color: white;
-            text-align: center;
-            transition: all 1s ease-in-out;
             overflow: hidden;
+            user-select: none;
+            position: relative;
+            flex-direction: column;
         }
-
-        @keyframes backgroundMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        @keyframes wildBlink {
-            0% { background: red; }
-            25% { background: yellow; }
-            50% { background: blue; }
-            75% { background: green; }
-            100% { background: purple; }
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            transition: all 1s ease-in-out;
-        }
-
-        h1 {
-            font-size: 3em;
-            margin: 20px 0;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
-
-        p {
-            font-size: 1.2em;
-            max-width: 600px;
-            margin: 0 auto 20px auto;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-
-        /* Pulsierender Button */
-        .btn {
-            display: inline-block;
-            padding: 12px 25px;
-            font-size: 1.2em;
-            color: white;
-            text-decoration: none;
-            background: rgba(255, 69, 0, 0.8);
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(255, 69, 0, 0.7);
-            transition: all 0.3s ease-in-out;
-            cursor: pointer;
-            animation: pulseButton 1s infinite; /* Animation */
-        }
-
-        @keyframes pulseButton {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            color: #ff4500;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 1);
-        }
-
-        /* Animierter Feuer-Text */
-        .hot-message {
-            font-size: 3em;
-            color: red;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 1);
-            display: none;
-            position: absolute;
+        .full-screen-image {
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            animation: fireGlow 1s infinite alternate;
-        }
-
-        @keyframes fireGlow {
-            0% { text-shadow: 0 0 20px red; }
-            100% { text-shadow: 0 0 50px yellow; }
-        }
-
-        /* Unsichtbar machen */
-        .hidden {
+            max-width: 90vw; /* Bildgröße auf 90% der Bildschirmbreite begrenzen */
+            max-height: 90vh; /* Bildgröße auf 90% der Bildschirmhöhe begrenzen */
+            object-fit: contain;
+            transition: opacity 2s ease-in-out;
             opacity: 0;
-            transform: scale(0);
+            pointer-events: none;
         }
-
-        /* Flammen-Animation */
-        .flame {
+        .message {
+            font-size: 2rem;
+            color: white;
+            background: red;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: block;
+        }
+        .message:hover {
+            transform: scale(1.1);
+        }
+        .background-effect {
             position: absolute;
-            font-size: 2em;
-            opacity: 0.8;
-            animation: flames 3s linear infinite;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,0,0,0.2) 10%, transparent 70%);
+            animation: pulse 1s infinite alternate;
+            z-index: -1;
         }
-
-        @keyframes flames {
-            0% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-100vh) scale(2);
-                opacity: 0;
-            }
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            100% { transform: scale(1.1); opacity: 0.8; }
         }
-
-        /* Emoji als "Bild" */
-        .emoji {
-            font-size: 250px; /* Größe des Emojis */
+        .grrr {
+            position: absolute;
+            animation: shake 0.5s infinite alternate, fadeOut 3s forwards;
+            font-size: 6rem;
+            font-weight: bold;
+            color: red;
+            opacity: 1;
+        }
+        @keyframes shake {
+            0% { transform: translate(-5px, -5px) rotate(-5deg); }
+            100% { transform: translate(5px, 5px) rotate(5deg); }
+        }
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
         }
     </style>
 </head>
 <body>
-    <div class="container" id="content">
-        <div class="emoji">👩🏻‍🦰</div>
-        <h1>🔥 Josi 🔥</h1>
-        <p>Josi ist 5km von dir entfernt. Buche sie für unvergessliche Momente🔞💦🤫</p>
-        <a href="#" class="btn" onclick="startCrazyEffect(event)">Buche direkt hier</a>
-    </div>
-
-    <div class="hot-message" id="hotMessage">🔥 Josi ist zu heiß! Buchung kann nicht geladen werden! 🔥</div>
-
+    <div class="background-effect hidden" id="bgEffect"></div>
+    <div class="message" id="message" onclick="showImageAndStartGrrr()">NICHT HIER DRAUF KLICKEN!</div>
+    <img src="img/20250323204338.jpg" alt="Angry Face" class="full-screen-image" id="angryImage" onerror="console.error('Bild nicht gefunden: img/20250323191147.jpg')">
+    
     <script>
-        function startCrazyEffect(event) {
-            event.preventDefault(); // Verhindert das Weiterleiten
+        setTimeout(() => {
+            document.getElementById('bgEffect').classList.remove('hidden');
+        }, 2000);
 
-            document.body.style.animation = "wildBlink 0.1s infinite"; // Startet das wilde Blinken
+        function showImageAndStartGrrr() {
+            // Bild einblenden
+            const angryImage = document.getElementById('angryImage');
+            angryImage.style.opacity = 1;
+            angryImage.style.pointerEvents = 'auto';
             
+            // Entferne den Button
+            document.querySelector('.message').remove();
+            
+            // Das Bild verblassen lassen
             setTimeout(() => {
-                document.getElementById('content').classList.add('hidden'); // Versteckt den Hauptinhalt
-                document.body.style.opacity = "1"; // Verhindert komplettes Ausblenden
-                showHotMessage(); // Zeigt die heiße Nachricht und startet Flammen
-            }, 3000);
+                angryImage.style.opacity = 0;
+            }, 3000); // 3 Sekunden nach Klick verblassen lassen
+
+            // Beginne mit dem Erstellen von GRRRs
+            startCreatingGrrr();
         }
 
-        function showHotMessage() {
-            let message = document.getElementById('hotMessage');
-            message.style.display = "block";
+        // Funktion zum Erzeugen von vielen GRRRs
+        function startCreatingGrrr() {
+            // Führe die Funktion alle 200 Millisekunden aus
+            setInterval(createGrrr, 200);
+        }
 
-            for (let i = 0; i < 50; i++) { // Erzeugt 50 Flammen-Emojis
-                let flame = document.createElement('div');
-                flame.innerHTML = "🔥";
-                flame.classList.add('flame');
-                flame.style.left = Math.random() * 100 + "vw"; // Zufällige horizontale Position
-                flame.style.animationDuration = (Math.random() * 3 + 2) + "s"; // Zufällige Animationsdauer
-                document.body.appendChild(flame);
+        // Funktion zum Erzeugen von GRRR
+        function createGrrr() {
+            const grrr = document.createElement("div");
+            grrr.textContent = "GRRRR!";
+            grrr.classList.add("grrr");
+            document.body.appendChild(grrr);
 
-                setTimeout(() => {
-                    flame.remove(); // Entfernt Flammen nach Animation
-                }, 5000);
-            }
+            // Position zufällig setzen
+            grrr.style.left = Math.random() * 90 + "vw";
+            grrr.style.top = Math.random() * 90 + "vh";
+
+            // Zufällige Farbe und Größe
+            grrr.style.color = `rgb(${Math.random() * 255}, 0, 0)`;
+            grrr.style.fontSize = Math.random() * 4 + 3 + "rem";
+
+            // GRRR nach 3 Sekunden entfernen
+            setTimeout(() => grrr.remove(), 3000);
         }
     </script>
 </body>
